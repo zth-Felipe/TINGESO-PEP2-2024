@@ -16,5 +16,4 @@ public class ReReparacionesService {
     public ArrayList<ReReparacionesEntity> getReReparaciones(){
         return (ArrayList<ReReparacionesEntity>) reReparacionesRepository.findAll();
     }
-
 }
