@@ -12,8 +12,10 @@ import java.util.List;
 @RequestMapping("/api/register")
 @CrossOrigin("*")
 public class RegistroController {
-    @Autowired
+
     RegistroService registroService;
+
+    public RegistroController(RegistroService registroService){this.registroService = registroService;}
 
     @GetMapping("/")
     public ResponseEntity<List<RegistroEntity>> listRegistros(){

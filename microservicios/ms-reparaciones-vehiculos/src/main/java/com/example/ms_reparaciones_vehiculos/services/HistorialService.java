@@ -3,7 +3,7 @@ package com.example.ms_reparaciones_vehiculos.services;
 import com.example.ms_reparaciones_vehiculos.entities.HistorialEntity;
 import com.example.gestion_reparacion_autofix.entities.ReReparacionesEntity;
 import com.example.gestion_reparacion_autofix.entities.RmReparacionesEntity;
-import com.example.gestion_reparacion_autofix.repositories.*;
+import com.example.ms_reparaciones_vehiculos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,6 +113,15 @@ public class HistorialService {
 
     public List<HistorialEntity> getHistorialPatente(String patente){
         return historialRepository.findAllByPatente(patente);
+    }
+
+    public List<Object> obtenerDatosRepositorios() {
+        List<Object> datos = new ArrayList<>();
+        datos.addAll(registroRepository.findAll());
+        datos.addAll(reReparacionesRepository.findAll());
+        datos.addAll(reparacionesRepository.findAll());
+        datos.addAll(rmReparacionesRepository.findAll());
+        return datos;
     }
 
 }
