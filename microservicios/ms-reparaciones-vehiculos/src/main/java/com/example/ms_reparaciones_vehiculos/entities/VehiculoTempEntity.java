@@ -1,21 +1,19 @@
-package com.example.ms_vehiculos.entities;
+package com.example.ms_reparaciones_vehiculos.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="registro")
-@Data
+@Table(name = "Vehiculo_Temp")
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistroEntity {
+@Data
+public class VehiculoTempEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long id;
-    @Column(unique = true, nullable = false)
     private String patente;
     private String marca;
     private String modelo;

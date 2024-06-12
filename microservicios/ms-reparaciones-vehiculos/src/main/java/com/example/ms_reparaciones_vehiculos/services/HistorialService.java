@@ -1,8 +1,10 @@
 package com.example.ms_reparaciones_vehiculos.services;
 
-import com.example.ms_reparaciones_vehiculos.entities.HistorialEntity;
-import com.example.gestion_reparacion_autofix.entities.ReReparacionesEntity;
-import com.example.gestion_reparacion_autofix.entities.RmReparacionesEntity;
+import com.example.ms_reparaciones_vehiculos.clients.ReparacionesListaFeignClient;
+import com.example.ms_reparaciones_vehiculos.clients.VehiculosFeignClient;
+import com.example.ms_reparaciones_vehiculos.entities.*;
+import com.example.ms_reparaciones_vehiculos.models.ReparacionesEntity;
+import com.example.ms_reparaciones_vehiculos.models.VehiculosEntity;
 import com.example.ms_reparaciones_vehiculos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,22 @@ import java.util.List;
 public class HistorialService {
     @Autowired
     HistorialRepository historialRepository;
+
     @Autowired
-    RegistroRepository registroRepository;
+    VehiculosFeignClient vehiculosFeignClient;
+
+    @Autowired
+    ReparacionesListaFeignClient reparacionesListaFeignClient;
+
+    @Autowired
+    VehiculoTempRepository registroRepository;
+
+    @Autowired
+    ReparacionesTempRepository reparacionesRepository;
+
     @Autowired
     ReReparacionesRepository reReparacionesRepository;
-    @Autowired
-    ReparacionesRepository reparacionesRepository;
+
     @Autowired
     RmReparacionesRepository rmReparacionesRepository;
 
@@ -29,14 +41,14 @@ public class HistorialService {
 
     public Integer obtenerMontoReparacion(HistorialEntity historial){
         int monto = 0;
-        if (registroRepository.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("GASOLINA")){
-            monto = reparacionesRepository.findByTipo(historial.getTipoReparacion()).getGasolina();
-        }if (registroRepository.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("DIESEL")){
-            monto = reparacionesRepository.findByTipo(historial.getTipoReparacion()).getDiesel();
-        }if (registroRepository.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("HIBRIDO")){
-            monto = reparacionesRepository.findByTipo(historial.getTipoReparacion()).getHibrido();
-        }if (registroRepository.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("ELECTRICO")){
-            monto = reparacionesRepository.findByTipo(historial.getTipoReparacion()).getElectrico();
+        if (vehiculosFeignClient.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("GASOLINA")){
+            monto = reparacionesListaFeignClient.getReparacion(historial.getTipoReparacion()).getGasolina();
+        }if (vehiculosFeignClient.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("DIESEL")){
+            monto = reparacionesListaFeignClient.getReparacion(historial.getTipoReparacion()).getDiesel();
+        }if (vehiculosFeignClient.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("HIBRIDO")){
+            monto = reparacionesListaFeignClient.getReparacion(historial.getTipoReparacion()).getHibrido();
+        }if (vehiculosFeignClient.findByPatente(historial.getPatente()).getTipoMotor().toUpperCase().equals("ELECTRICO")){
+            monto = reparacionesListaFeignClient.getReparacion(historial.getTipoReparacion()).getElectrico();
         }
         return monto;
     }
@@ -45,7 +57,7 @@ public class HistorialService {
 
 
         // Tabla Reparaciones - Tipo Vehiculo
-        String tipoVehiculo = registroRepository.findByPatente(historial.getPatente()).getTipo();
+        String tipoVehiculo = vehiculosFeignClient.findByPatente(historial.getPatente()).getTipo();
         if (tipoVehiculo.toUpperCase().equals("SEDAN")){
             ReReparacionesEntity actualizar = reReparacionesRepository.findByTipoRepa(historial.getTipoReparacion());
             int monto = obtenerMontoReparacion(historial);
@@ -79,7 +91,7 @@ public class HistorialService {
         }
 
         // Tabla Reparaciones - Tipo de Motor
-        String tipoMotor = registroRepository.findByPatente(historial.getPatente()).getTipoMotor();
+        String tipoMotor = vehiculosFeignClient.findByPatente(historial.getPatente()).getTipoMotor();
         if (tipoMotor.toUpperCase().equals("GASOLINA")){
             RmReparacionesEntity actualizar = rmReparacionesRepository.findByTipoRepa(historial.getTipoReparacion());
             int monto = obtenerMontoReparacion(historial);
@@ -117,11 +129,49 @@ public class HistorialService {
 
     public List<Object> obtenerDatosRepositorios() {
         List<Object> datos = new ArrayList<>();
-        datos.addAll(registroRepository.findAll());
+        datos.addAll(vehiculosFeignClient.listVehiculos());
         datos.addAll(reReparacionesRepository.findAll());
-        datos.addAll(reparacionesRepository.findAll());
+        datos.addAll(reparacionesListaFeignClient.getReparaciones());
         datos.addAll(rmReparacionesRepository.findAll());
         return datos;
+    }
+
+    private void crearTablaReparacionesTemporal(List<ReparacionesEntity> reparacionesLista) {
+        // Borrar la tabla temporal si existe
+        reparacionesRepository.deleteAll();
+
+        // Crear la tabla temporal
+        for (ReparacionesEntity reparacion : reparacionesLista){
+            ReparacionesTempEntity reparacionTemp = new ReparacionesTempEntity();
+            reparacionTemp.setTipo(reparacion.getTipo());
+            reparacionTemp.setDiesel(reparacion.getDiesel());
+            reparacionTemp.setElectrico(reparacion.getElectrico());
+            reparacionTemp.setGasolina(reparacion.getGasolina());
+            reparacionTemp.setHibrido(reparacion.getHibrido());
+            reparacionesRepository.save(reparacionTemp);
+        }
+
+
+    }
+
+    private void crearTablaVehiculosTemporal(List<VehiculosEntity> vehiculos) {
+        // Borrar la tabla temporal si existe
+        registroRepository.deleteAll();
+
+        // Crear la tabla temporal
+        for (VehiculosEntity vehiculo : vehiculos){
+            VehiculoTempEntity vehiculoTemp = new VehiculoTempEntity();
+            vehiculoTemp.setPatente(vehiculo.getPatente());
+            vehiculoTemp.setMarca(vehiculo.getMarca());
+            vehiculoTemp.setModelo(vehiculo.getModelo());
+            vehiculoTemp.setTipo(vehiculo.getTipo());
+            vehiculoTemp.setAnoFabr(vehiculo.getAnoFabr());
+            vehiculoTemp.setTipoMotor(vehiculo.getTipoMotor());
+            vehiculoTemp.setNumAsientos(vehiculo.getNumAsientos());
+            vehiculoTemp.setBono(vehiculo.getBono());
+            vehiculoTemp.setKilometraje(vehiculo.getKilometraje());
+            registroRepository.save(vehiculoTemp);
+        }
     }
 
 }
