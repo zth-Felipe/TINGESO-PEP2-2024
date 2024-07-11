@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VehiculoTempRepository extends JpaRepository<VehiculoTempEntity, String> {
-    public VehiculoTempEntity findByPatenteT(String patente);
+public interface VehiculoTempRepository extends JpaRepository<VehiculoTempEntity, Long> {
+    public VehiculoTempEntity findByPatente(String patente);
 }

@@ -29,7 +29,11 @@ spring:
           uri: lb://ms-lista-reparaciones
           predicates:
             - Path=/api/reparaciones/**
-        - id: ms-products
-          uri: lb://ms-lista-reparaciones
+        - id: ms-reparaciones-vehiculos
+          uri: lb://ms-reparaciones-vehiculos
           predicates:
-            - Path=/api/reparaciones/**
+            - Path=/api/historial/**
+        - id: ms-reportes
+          uri: lb://ms-reportes
+          predicates:
+            - Path=/api/reportes/**

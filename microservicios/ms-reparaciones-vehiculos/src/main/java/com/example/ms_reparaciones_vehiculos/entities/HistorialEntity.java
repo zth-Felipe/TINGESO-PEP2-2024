@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "historial")
@@ -18,11 +19,15 @@ public class HistorialEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
     private String patente;
     private LocalDate fechaIngreso;
     private LocalTime horaIngreso;
-    private int tipoReparacion;
-    private int montoTotal;
+    private double montoTotal;
+    private double montoDescuento;
+    private double montoRecargo;
+    private double montoIva;
+    private double costoTotal;
     private LocalDate fechaSalida;
     private LocalTime horaSalida;
     private LocalDate fechaCliente;

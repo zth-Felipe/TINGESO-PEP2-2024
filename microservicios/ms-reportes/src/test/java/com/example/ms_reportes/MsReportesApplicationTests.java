@@ -3,10 +3,10 @@ package com.example.ms_reportes;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class MsReportesApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 

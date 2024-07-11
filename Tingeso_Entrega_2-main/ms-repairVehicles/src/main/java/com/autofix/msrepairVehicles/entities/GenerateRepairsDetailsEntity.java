@@ -18,17 +18,11 @@ public class GenerateRepairsDetailsEntity {
     private long id;
 
     private long reparacion_id;
-
     private Float total_descuento;
-
     private Float total_recargos;
-
     private Float descuento_bono;
-
     private Float iva;
-
     private Float monto_reparaciones;
-
     private Float total;
 
 

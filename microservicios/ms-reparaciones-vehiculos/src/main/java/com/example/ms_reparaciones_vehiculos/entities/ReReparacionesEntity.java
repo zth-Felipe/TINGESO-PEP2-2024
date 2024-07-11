@@ -18,9 +18,14 @@ public class ReReparacionesEntity {
     private int tipoRepa;
     private String nombreReparacion;
     private int sedan;
+    private int sedanCash;
     private int hatchback;
+    private int hatchbackCash;
     private int suv;
+    private int suvCash;
     private int pickup;
+    private int pickupCash;
     private int furgoneta;
+    private int furgonetaCash;
     private int total;
 }

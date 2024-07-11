@@ -4,10 +4,7 @@ import com.example.ms_lista_reparaciones.entities.ReparacionesTipoEntity;
 import com.example.ms_lista_reparaciones.services.ReparacionesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,16 +21,14 @@ public class ReparacionesController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReparacionesTipoEntity> getReparacion(@RequestBody Integer id){
+    public ResponseEntity<ReparacionesTipoEntity> getReparacion(@PathVariable  Integer id){
         ReparacionesTipoEntity reparacion = reparacionesService.getReparacion(id);
         return ResponseEntity.ok(reparacion);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Integer> getPrecioGasolina(@RequestBody Integer id){
+    @GetMapping("/gasolina/{id}")
+    public ResponseEntity<Integer> getPrecioGasolina(@PathVariable Integer id){
         Integer monto = reparacionesService.getReparacion(id).getGasolina();
         return ResponseEntity.ok(monto);
     }
-
-
 }

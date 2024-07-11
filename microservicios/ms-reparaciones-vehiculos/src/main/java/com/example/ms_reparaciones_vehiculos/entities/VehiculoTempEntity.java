@@ -1,19 +1,18 @@
 package com.example.ms_reparaciones_vehiculos.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Vehiculo_Temp")
+@Table(name = "vehiculo_temp")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class VehiculoTempEntity {
     @Id
+    private Long id;
     private String patente;
     private String marca;
     private String modelo;

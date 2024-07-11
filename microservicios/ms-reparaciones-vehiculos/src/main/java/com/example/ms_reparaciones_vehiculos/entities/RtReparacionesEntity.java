@@ -16,5 +16,8 @@ import lombok.NoArgsConstructor;
 public class RtReparacionesEntity {
     @Id
     private int tipoRepa;
-
+    private int ano;
+    private int mes;
+    private int cantidadRepa;
+    private int monto;
 }

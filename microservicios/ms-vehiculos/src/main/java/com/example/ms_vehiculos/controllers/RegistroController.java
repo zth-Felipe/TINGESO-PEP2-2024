@@ -24,7 +24,7 @@ public class RegistroController {
     }
 
     @GetMapping("/{patente}")
-    public ResponseEntity<RegistroEntity> getRegistro(@RequestBody String patente){
+    public ResponseEntity<RegistroEntity> getRegistro(@PathVariable String patente){
         RegistroEntity registro = registroService.getRegistro(patente);
         return ResponseEntity.ok(registro);
     }
