@@ -1,0 +1,17 @@
+Pues en un ejemplo
+@Test
+    void encontrarPorCodigo(){
+        proveedorEntity = new ProveedorEntity();
+        proveedorEntity.setProveedor_id("00101");
+        proveedorEntity.setCategoria("A");
+        proveedorEntity.setNombre("Anonimo");
+        proveedorEntity.setAfecto_retencion("No");
+        proveedorService.guardarProveedor(proveedorEntity);
+
+        assertThat(proveedorService.encontrarPorCodigo("00101")).isEqualTo(proveedorEntity);
+
+        proveedorRepository.deleteById(proveedorEntity.getProveedor_id());
+    }
+
+Debes generar el dato, almacenarlo y usarlo para verificar que lo que retorne sea lo correcto
+Recordando colocar el "@Test" al inicio de cada test unitario

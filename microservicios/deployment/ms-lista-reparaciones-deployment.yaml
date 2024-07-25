@@ -1,0 +1,50 @@
+ms-lista-reparaciones-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-lista-reparaciones-deployment
+  labels:
+    app: ms-lista-reparaciones-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ms-lista-reparaciones-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ms-lista-reparaciones-deployment
+    spec:
+      containers:
+        - name: ms-lista-reparaciones
+          image: zthfelipe/ms-lista-reparaciones
+          ports:
+            - containerPort: 8092
+          env:
+            - name: SERVER_PORT
+              value: "0"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config-map
+                  key: DB_HOST_REPAIRLIST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config-map
+                  key: DB_PORT_REPAIRLIST
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config-map
+                  key: DB_NAME_REPAIRLIST
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: DB_PASSWORD

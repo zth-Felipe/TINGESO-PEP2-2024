@@ -21,5 +21,14 @@ public class ReparacionesService {
         return reparacionesRepository.save(reparacion);
     }
 
+    public ReparacionesTipoEntity modificarReparacion(ReparacionesTipoEntity nuevaRepa){
+        ReparacionesTipoEntity reparacion = reparacionesRepository.findByTipo(nuevaRepa.getTipo());
+        reparacion.setGasolina(nuevaRepa.getGasolina());
+        reparacion.setElectrico(nuevaRepa.getElectrico());
+        reparacion.setDiesel(nuevaRepa.getDiesel());
+        reparacion.setHibrido(nuevaRepa.getHibrido());
+        reparacion.setNombreRepa(nuevaRepa.getNombreRepa());
+        return reparacionesRepository.save(reparacion);
+    }
 
 }

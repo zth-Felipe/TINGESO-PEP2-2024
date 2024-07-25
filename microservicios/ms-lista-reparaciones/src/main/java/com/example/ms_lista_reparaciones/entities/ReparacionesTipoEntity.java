@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class ReparacionesTipoEntity {
     @Id
     private int tipo;
+    private String nombreRepa;
     private int gasolina;
     private int diesel;
     private int hibrido;

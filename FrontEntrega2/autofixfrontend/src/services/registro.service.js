@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REGISTROS_API_URL = "http://localhost:8090/api/register/";
+const REGISTROS_API_URL = "http://localhost:8092/api/register/";
 
 function crearRegistro(registro) {
     return axios.post(REGISTROS_API_URL, registro);
@@ -11,7 +11,8 @@ function getRegistros() {
 }
 
 function getRegistro(patente) {
-    return axios.get(REGISTROS_API_URL, patente);
-} 
-
+    return axios.get(`${REGISTROS_API_URL}${patente}`).then(response => {
+        return response.data;
+    });
+}
 export default {crearRegistro, getRegistro, getRegistros}

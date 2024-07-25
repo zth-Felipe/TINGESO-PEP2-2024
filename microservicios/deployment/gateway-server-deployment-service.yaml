@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: zthfelipe/ms-gateway-server
+          image: zthfelipe/gateway-server
           ports:
             - containerPort: 8080
 ---

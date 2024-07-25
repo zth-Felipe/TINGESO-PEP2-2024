@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: zthfelipe/ms-eureka-server
+          image: zthfelipe/eureka-server
           ports:
             - containerPort: 8761
 ---

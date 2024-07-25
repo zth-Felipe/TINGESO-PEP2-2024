@@ -173,7 +173,7 @@ public class HistorialService {
 
 
         List<HistorialDetalladoEntity> listHistorialD = historialDetalladoRepository.findAllByPatenteAndFechaReparacionBeforeAndFechaReparacionAfter
-                (historial.getPatente(),historial.getFechaSalida(), historial.getFechaIngreso().minusDays(1));
+                (historial.getPatente(),historial.getFechaSalida().plusDays(1), historial.getFechaIngreso().minusDays(1));
 
         // Monto Total
         double montoTotal = recorrerListaObtenerMonto(listHistorialD);

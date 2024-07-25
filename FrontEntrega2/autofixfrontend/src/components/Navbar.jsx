@@ -34,6 +34,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 0 }}>
             SisIGR
           </Typography>
+          
         </Toolbar>
       </AppBar>
 

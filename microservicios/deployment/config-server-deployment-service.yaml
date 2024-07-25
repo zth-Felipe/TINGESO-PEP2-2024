@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: config-server
-        image: zthfelipe/ms-config-server
+        image: zthfelipe/config-server
         ports:
           - containerPort: 8888
 ---

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reparaciones")
+@CrossOrigin("*")
 public class ReparacionesController {
     @Autowired
     ReparacionesService reparacionesService;
@@ -18,6 +19,18 @@ public class ReparacionesController {
     public ResponseEntity<List<ReparacionesTipoEntity>> getReparaciones(){
         List<ReparacionesTipoEntity> listaReparaciones = reparacionesService.getReparaciones();
         return ResponseEntity.ok(listaReparaciones);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<ReparacionesTipoEntity> saveReparaciones(@RequestBody ReparacionesTipoEntity reparacionesTipoEntity){
+        ReparacionesTipoEntity nuevaReparacion = reparacionesService.saveReparacion(reparacionesTipoEntity);
+        return ResponseEntity.ok(nuevaReparacion);
+    }
+
+    @PostMapping("/modificar")
+    public ResponseEntity<ReparacionesTipoEntity> modificarRepa(@RequestBody ReparacionesTipoEntity reparacionesTipoEntity){
+        ReparacionesTipoEntity nuevaReparacion = reparacionesService.modificarReparacion(reparacionesTipoEntity);
+        return ResponseEntity.ok(nuevaReparacion);
     }
 
     @GetMapping("/{id}")

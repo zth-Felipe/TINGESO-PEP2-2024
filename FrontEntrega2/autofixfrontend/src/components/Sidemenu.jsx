@@ -15,6 +15,15 @@ import HailIcon from "@mui/icons-material/Hail";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import HomeIcon from "@mui/icons-material/Home";
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import CarRentalIcon from '@mui/icons-material/CarRental';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import ListIcon from '@mui/icons-material/List';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import DomainIcon from '@mui/icons-material/Domain';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer }) {
@@ -36,9 +45,86 @@ export default function Sidemenu({ open, toggleDrawer }) {
 
         <ListItemButton onClick={() => navigate("/registro")}>
           <ListItemIcon>
-            <PeopleAltIcon />
+            <DirectionsCarIcon />
           </ListItemIcon>
           <ListItemText primary="Registros" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/crear-registro")}>
+          <ListItemIcon>
+            <CarRentalIcon />
+          </ListItemIcon>
+          <ListItemText primary="Nuevo Registro" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/listareparaciones")}>
+          <ListItemIcon>
+            <ContentCopyIcon />
+          </ListItemIcon>
+          <ListItemText primary="Lista de Reparaciones" />
+        </ListItemButton>
+        
+        <ListItemButton onClick={() => navigate("/addreparacion")}>
+          <ListItemIcon>
+            <NoteAddIcon />
+          </ListItemIcon>
+          <ListItemText primary="Añadir Tipo de Reparacion" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/updatereparacion")}>
+          <ListItemIcon>
+            <ContentPasteGoIcon />
+          </ListItemIcon>
+          <ListItemText primary="Modificar Reparación" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/historial-patente")}>
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary="Buscar Historial por Patente" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/historial-detallado-patente")}>
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary="Buscar Historial Detallado por Patente" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/nuevo-historial")}>
+          <ListItemIcon>
+            <ListAltIcon />
+          </ListItemIcon>
+          <ListItemText primary="Agregar Historial" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/nuevo-historial-d")}>
+          <ListItemIcon>
+            <ListAltIcon />
+          </ListItemIcon>
+          <ListItemText primary="Agregar Historial Detallado" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/reporte1")}>
+          <ListItemIcon>
+            <DomainIcon />
+          </ListItemIcon>
+          <ListItemText primary="Reporte Reparaciones / TipoVehiculo" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/reporte2")}>
+          <ListItemIcon>
+            <DomainIcon />
+          </ListItemIcon>
+          <ListItemText primary="Reporte Comparativo / Mes" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => navigate("/AllHistorials")}>
+          <ListItemIcon>
+            <DomainIcon />
+          </ListItemIcon>
+          <ListItemText primary="Mostrar Todos los Historiales creados" />
         </ListItemButton>
 
         </List>
